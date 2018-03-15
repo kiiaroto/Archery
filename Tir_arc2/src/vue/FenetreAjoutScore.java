@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import modele.Fleche;
 import modele.ListeDesSession;
@@ -49,6 +51,88 @@ public class FenetreAjoutScore {
 	
 	int nombreDeFlèche = 0;
 	int nombreDeVolée = 0;
+	
+	
+	DocumentListener docListener = new DocumentListener() {
+		
+		@Override
+		public void removeUpdate(DocumentEvent e) {
+			// TODO Auto-generated method stub
+			calcul();
+		}
+		
+		@Override
+		public void insertUpdate(DocumentEvent e) {
+			// TODO Auto-generated method stub
+			calcul();
+		}
+		
+		@Override
+		public void changedUpdate(DocumentEvent e) {
+			calcul();
+		}
+		
+		public void calcul() {
+			for (int i = 1; i <= nombreDeVolée; i++) {
+				// Créer le String qui servira de clé dans la map (volée1, volée2, volée3, ...)
+				nameVolée = volée + String.valueOf(i);
+				
+				voléeMap.put(nameVolée, new Volée(nameVolée));
+				
+				
+				
+				// Génere par volée le nombre de textField correspondant au nombre de fleche.
+				for (int j = 1; j <= nombreDeFlèche; j++) {
+					// reset le String à la bonne volée (volée1, volée2, volée3, ...)
+					numéroDeFleche = nameVolée;
+					// Ajout le numéro de la fleche a la volée (volée1arrow1, volée1arrow2, volée1arrow3, ...)
+					numéroDeFleche += arrow + String.valueOf(j);
+					
+					// Si le getText récupère une valeur qui existe dans le tableau de nombre, alors on créer une nouvelle fleche avec cette valeurs comme points
+					if (listeNombres.contains(textFieldMap.get(numéroDeFleche).getText())) {
+						voléeMap.get(nameVolée).ajouterFleche(new Fleche(Integer.parseInt(textFieldMap.get(numéroDeFleche).getText())));
+					}
+					//Sinon, on créer une fleche de valeur 0
+					else {
+						voléeMap.get(nameVolée).ajouterFleche(new Fleche(0));
+					}
+					
+
+				}
+				
+				// Génere le label du resultat de la ligne
+				//Préparation du String qui servira de clé pour le resultat de la ligne (resultatLigne1, resultatLigne2, resultatLigne3 ...)
+				nameRésultatVolée = resultLigne + String.valueOf(i);
+				// Donne a résultatVolée la valeur du résultat de la volée
+				résultatVolée = voléeMap.get(nameVolée).totalDeLaVolée();
+				// Change le label nommé (resultatLigne1, resultatLigne2, resultatLigne3 ...) et lui attribut le text a affiché qui correspond au résultat de la volée
+				labelMap.get(nameRésultatVolée).setText(String.valueOf(résultatVolée));
+
+				
+				// Récupère le total de l'ancienne volée et lui ajoute le résultat de la dernière volée ajouté
+				// si c'est la 1ere volée, initialise le total a la même valeur que le résultat
+				if(i == 1) {
+					totalVolée = résultatVolée;
+				}
+				else {
+					// Récupère le total de l'ancienne volée et lui ajoute le résultat de la dernière volée ajouté
+					totalVolée = résultatVolée + totalPreviousVolée;
+				}
+				
+				
+				// Génere le label du total
+				//Préparation du String qui servira de clé pour le total de la ligne (totalLigne1, totalLigne2, totalLigne3 ...)
+				nameTotalVolée = totalLigne + String.valueOf(i);
+				//Sauvegarde dans la volée, le total des points a cette volée la
+				voléeMap.get(nameVolée).setTotalVolée(totalVolée);
+				// Change le label nommé (totalLigne1, totalLigne2, totalLigne3 ...) et lui attribut le text a affiché qui correspond au total de la volée
+				labelMap.get(nameTotalVolée).setText(String.valueOf(totalVolée));
+				// sauvegarde du total de la volée pour le réutilisé plus tard
+				totalPreviousVolée = totalVolée;
+				
+			}
+		}
+	};
 	
 	public void affiche(int nombreDeVolée, int nombreDeFlèche, String nomSession) {
 		// Défini nombreDeFlèche et nombreDeVolée avec this. pour les réutiliser dans l'actionListener
@@ -102,7 +186,9 @@ public class FenetreAjoutScore {
 						// Ajout le numéro de la fleche a la volée (volée1arrow1, volée1arrow2, volée1arrow3, ...)
 						numéroDeFleche += this.arrow + String.valueOf(j);
 						// Ajoute à la map le TextField avec comme clé "numéroDeFleche" (volée1arrow1, volée1arrow2, volée1arrow3, ...)
-						textFieldMap.put(numéroDeFleche, new JTextField());
+						JTextField t = new JTextField();
+						t.getDocument().addDocumentListener(docListener);
+						textFieldMap.put(numéroDeFleche, t);
 						// Ajoute le TextField a la fenetre
 						grille.add(textFieldMap.get(numéroDeFleche));
 					}
@@ -264,7 +350,6 @@ public class FenetreAjoutScore {
 		
 	}
 	
-	
 	public class Retourner implements ActionListener {
 
 		@Override
@@ -278,4 +363,6 @@ public class FenetreAjoutScore {
 		}
 		
 	}
+	
+	
 }
