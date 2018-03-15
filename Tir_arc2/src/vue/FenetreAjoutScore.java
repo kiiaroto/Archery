@@ -135,6 +135,7 @@ public class FenetreAjoutScore {
 	};
 	
 	public void affiche(int nombreDeVolée, int nombreDeFlèche, String nomSession) {
+		
 		// Défini nombreDeFlèche et nombreDeVolée avec this. pour les réutiliser dans l'actionListener
 		this.nombreDeFlèche = nombreDeFlèche;
 		this.nombreDeVolée = nombreDeVolée;
