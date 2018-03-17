@@ -276,8 +276,8 @@ public class ModificationScore {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				// TODO Auto-generated method stub
-				FenetreScore fenetreScore = new FenetreScore();
-				fenetreScore.affiche(sessions.getSession(nomSession));
+				FenetreListeSession fenetreListeSession = new FenetreListeSession();
+				fenetreListeSession.affiche();
 							
 							
 				maFenetre.dispose();
