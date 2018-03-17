@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -243,7 +246,56 @@ public class ModificationScore {
 		
 		
 		maFenetre.pack();
-		maFenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		maFenetre.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		// Add window listener pour revenir a la fenettre précédente en fermant la fenetre avec la croix en haut a droite (windowClosing)
+		maFenetre.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				FenetreScore fenetreScore = new FenetreScore();
+				fenetreScore.affiche(sessions.getSession(nomSession));
+							
+							
+				maFenetre.dispose();
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		maFenetre.setVisible(true);
 		
 	}
