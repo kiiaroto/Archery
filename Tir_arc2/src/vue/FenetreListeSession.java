@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import dao.GestionXML;
 import modele.ListeDesSession;
 
 
@@ -147,14 +148,20 @@ public class FenetreListeSession {
 			if (!listeSession.isSelectionEmpty()) {
 				// Créer une une fenetre de confirmation pour supprimer une Session
 				int option = JOptionPane.showConfirmDialog(null, "Voulez vous vraiment supprimer: " + listeSession.getSelectedValue(), "Êtes vous sur?", JOptionPane.YES_NO_OPTION);
-	
+				
 				// Si le bouton YES est clicker
 				if (option == JOptionPane.YES_OPTION) {
+					
+					//Supprime le fichier de sauvegarde XML de la session
+					GestionXML xml = new GestionXML(sessions.getSession(listeSession.getSelectedValue().substring(24)));
+					xml.deleteXmlFile();
+					
 					// Supprime la session sans prendre en compte la date (substring 24)
 					sessions.supprimerSession(listeSession.getSelectedValue().substring(24));
 					// Suprimme la Séléction Session de la Jlist
 					nomDesSessions.removeElementAt(listeSession.getSelectedIndex());
 				}
+				
 			}
 		}
 	}

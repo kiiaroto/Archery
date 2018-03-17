@@ -328,8 +328,8 @@ public class FenetreAjoutScore {
 			}
 			
 			
-			GestionXML xmlCreator = new GestionXML();
-	        xmlCreator.createXmlFile(nomSession);
+			GestionXML xml= new GestionXML(session);
+	        xml.createXmlFile();
 			
 		}
 		
