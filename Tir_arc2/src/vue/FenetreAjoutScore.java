@@ -187,9 +187,9 @@ public class FenetreAjoutScore {
 						// Ajout le numéro de la fleche a la volée (volée1arrow1, volée1arrow2, volée1arrow3, ...)
 						numéroDeFleche += this.arrow + String.valueOf(j);
 						// Ajoute à la map le TextField avec comme clé "numéroDeFleche" (volée1arrow1, volée1arrow2, volée1arrow3, ...)
-						JTextField t = new JTextField();
-						t.getDocument().addDocumentListener(docListener);
-						textFieldMap.put(numéroDeFleche, t);
+						JTextField txtField = new JTextField();
+						txtField.getDocument().addDocumentListener(docListener);
+						textFieldMap.put(numéroDeFleche, txtField);
 						// Ajoute le TextField a la fenetre
 						grille.add(textFieldMap.get(numéroDeFleche));
 					}
@@ -216,12 +216,12 @@ public class FenetreAjoutScore {
 			p1.add(grille, BorderLayout.CENTER);
 			
 			JPanel grilleButton = new JPanel();
-			grilleButton.setLayout(new GridLayout(1, 3));
+			grilleButton.setLayout(new GridLayout(1, 2));
 				//  Ajout du boutton valider
-				Valider calcul = new Valider();
-				JButton calculButton = new JButton("Calculer");
-				calculButton.addActionListener(calcul);
-				grilleButton.add(calculButton);
+//				Valider calcul = new Valider();
+//				JButton calculButton = new JButton("Calculer");
+//				calculButton.addActionListener(calcul);
+//				grilleButton.add(calculButton);
 				
 				Sauvegarder sauvegarde = new Sauvegarder();
 				JButton sauvegardeButton = new JButton("Sauvegarder");
