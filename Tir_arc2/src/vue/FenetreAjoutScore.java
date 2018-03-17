@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import dao.GestionXML;
 import modele.Fleche;
 import modele.ListeDesSession;
 import modele.Session;
@@ -325,6 +326,10 @@ public class FenetreAjoutScore {
 				}
 				sessions.ajouterSession(session);
 			}
+			
+			
+			GestionXML xmlCreator = new GestionXML();
+	        xmlCreator.createXmlFile(nomSession);
 			
 		}
 		
