@@ -1,4 +1,4 @@
-package modele;
+package vue;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -15,7 +15,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import vue.FenetreScore;
+import modele.Fleche;
+import modele.ListeDesSession;
+import modele.Session;
+import modele.Volée;
 
 public class ModificationScore {
 	List<String> listeNombres = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10");

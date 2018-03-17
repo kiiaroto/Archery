@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 
 import modele.Fleche;
 import modele.ListeDesSession;
-import modele.ModificationScore;
 import modele.Session;
 import modele.Volée;
 
