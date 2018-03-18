@@ -102,7 +102,7 @@ public class GestionXML {
 							
 							Element fleche = document.createElement("fleche");
 							fleche.setAttribute("numero", String.valueOf(j));
-							fleche.setTextContent(" ");
+							fleche.setTextContent("0");
 							volee.appendChild(fleche);
 							
 						}
