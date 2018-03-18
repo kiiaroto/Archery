@@ -3,6 +3,7 @@ package dao;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.DefaultListModel;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,6 +17,8 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import modele.Session;
@@ -81,7 +84,24 @@ public class GestionXML {
 					
 					
 					//Génération du nombre de volée et de flèche nécessaire a l'écriture du fichier
-					//TODO
+					int nbrVolee = session.getNbrDeVolée();
+					int nbrFleche = session.getNbrDeFlèche();
+					
+					for (int i = 1; i <= nbrVolee; i++) {
+						
+						Element volee = document.createElement("volee");
+						volee.setAttribute("numero", String.valueOf(i));
+						
+						for (int j = 1; j <= nbrFleche; j++) {
+							
+							Element fleche = document.createElement("fleche");
+							fleche.setAttribute("numero", String.valueOf(j));
+							volee.appendChild(fleche);
+							
+						}
+						
+						sess.appendChild(volee);
+					}
 					
 					
 				// ajoute tout au document (balise session et son contenu)
@@ -125,6 +145,7 @@ public class GestionXML {
 		//TODO
 	}
 	
+	
 	public void deleteXmlFile() {
 		
 		if (file.exists()) {
@@ -132,7 +153,63 @@ public class GestionXML {
 		}
 		
 	}
-
+	
+	public DefaultListModel<String> getAllXmlList() {
+		DefaultListModel<String> liste = new DefaultListModel<String>();
+		String name = null;
+		if (file.isDirectory()) {
+			
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			try {
+				
+				DocumentBuilder builder = factory.newDocumentBuilder();
+				;
+				
+				
+				for (String s : file.list()) {
+					Document document = builder.parse(filePath + s);
+					
+					Element racine = document.getDocumentElement();
+					
+					NodeList nodeList = racine.getElementsByTagName("cal");
+					Node node = nodeList.item(0);
+					name = node.getTextContent() + "  |  ";
+					
+					nodeList = racine.getElementsByTagName("nom");
+					node = nodeList.item(0);
+					name += node.getTextContent();
+					
+					liste.addElement(name);
+					
+				}
+				
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+		// "  |  "
+		return liste;
+	}
+	
+	public String getCal() {
+		
+		return "";
+	}
+	
+	public GestionXML() {
+		this.filePath = System.getenv().get("HOMEPATH") + "\\Documents\\Tir Arc\\";
+		this.file = new File(filePath);
+	}
+	
 	public GestionXML(Session session) {
 		super();
 		this.session = session;
@@ -140,5 +217,9 @@ public class GestionXML {
 		this.file = new File(filePath);
 	}
 	
-	
+	public GestionXML(String nomSession) {
+		super();
+		this.filePath = System.getenv().get("HOMEPATH") + "\\Documents\\Tir Arc\\" + nomSession + ".xml";
+		this.file = new File(filePath);
+	}
 }

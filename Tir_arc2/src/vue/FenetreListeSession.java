@@ -25,10 +25,14 @@ public class FenetreListeSession {
 	DefaultListModel<String> nomDesSessions;
 	JList<String> listeSession;
 	JFrame fenetreDesSession;
+	GestionXML xml;
 	
 	public void affiche() {
 		
-		nomDesSessions = sessions.nomDeTouteLesSessions();
+		xml = new GestionXML();
+		nomDesSessions = xml.getAllXmlList();
+		
+		//nomDesSessions = sessions.nomDeTouteLesSessions();
 		
 		fenetreDesSession = new JFrame("Session");
 		fenetreDesSession.setLayout(new BorderLayout(10, 10));
@@ -62,7 +66,7 @@ public class FenetreListeSession {
 				
 			panelDesSession.add(gridButton, BorderLayout.SOUTH);
 
-		
+			
 		fenetreDesSession.add(panelDesSession, BorderLayout.CENTER);
 
 		fenetreDesSession.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -153,7 +157,7 @@ public class FenetreListeSession {
 				if (option == JOptionPane.YES_OPTION) {
 					
 					//Supprime le fichier de sauvegarde XML de la session
-					GestionXML xml = new GestionXML(sessions.getSession(listeSession.getSelectedValue().substring(24)));
+					GestionXML xml = new GestionXML(listeSession.getSelectedValue().substring(24));
 					xml.deleteXmlFile();
 					
 					// Supprime la session sans prendre en compte la date (substring 24)
