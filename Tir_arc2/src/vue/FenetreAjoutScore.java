@@ -330,6 +330,7 @@ public class FenetreAjoutScore {
 			
 			GestionXML xml= new GestionXML(session);
 	        xml.createXmlFile();
+	        xml.writeXmlFile(voléeMap);
 			
 		}
 		

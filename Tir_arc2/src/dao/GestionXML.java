@@ -2,6 +2,8 @@ package dao;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.DefaultListModel;
 import javax.xml.parsers.DocumentBuilder;
@@ -21,7 +23,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import modele.Fleche;
 import modele.Session;
+import modele.Volée;
 
 public class GestionXML {
 	
@@ -96,6 +100,7 @@ public class GestionXML {
 							
 							Element fleche = document.createElement("fleche");
 							fleche.setAttribute("numero", String.valueOf(j));
+							fleche.setTextContent(" ");
 							volee.appendChild(fleche);
 							
 						}
@@ -137,8 +142,80 @@ public class GestionXML {
 		return false;
 	}
 
-	public void writeXmlFile() {
+	public void writeXmlFile(HashMap<String, Volée> voléeMap) {
 		//TODO
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		ArrayList<Fleche> listeDesFleches;
+		int conteur;
+		
+		String voleeBuildedName = "";
+		//volée1arrow2
+		try {
+			
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(filePath);
+			
+			Element racine = document.getDocumentElement();
+			
+			NodeList voleeNodeList = racine.getElementsByTagName("volee");
+			
+			for (int i = 0; i < voleeNodeList.getLength(); i++) {
+				conteur = 0;
+				voleeBuildedName = "volée" + String.valueOf(i + 1);
+				listeDesFleches = voléeMap.get(voleeBuildedName).getAllArrow();
+				
+				Node voleeNode = voleeNodeList.item(i);
+				System.out.println(i);
+				if (voleeNode.getNodeType() == Node.ELEMENT_NODE) {
+					
+					NodeList flecheNodeList = voleeNode.getChildNodes();
+
+					for (int j = 0; j < flecheNodeList.getLength(); j++) {
+						Node flecheNode = flecheNodeList.item(j);
+						if (flecheNode.getNodeType() == Node.ELEMENT_NODE) {
+							
+//							System.out.println("----------------------");
+//							System.out.println(flecheNode.getAttributes().item(0));
+//							System.out.println(listeDesFleches.get(conteur).getPoints());
+
+							flecheNode.setTextContent(String.valueOf(listeDesFleches.get(conteur).getPoints()));
+							conteur += 1;
+						}
+					}
+				}
+			}
+			
+			TransformerFactory transFactory = TransformerFactory.newInstance();
+			try {
+				
+				Transformer trans = transFactory.newTransformer();
+				trans.setOutputProperty(OutputKeys.INDENT, "yes");
+				trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+				
+				DOMSource source = new DOMSource(document);
+				StreamResult result = new StreamResult(filePath);
+				
+				trans.transform(source, result);
+				
+			} catch (TransformerConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TransformerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void readXmlFile() {
@@ -193,17 +270,11 @@ public class GestionXML {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
 		}
-		// "  |  "
+		
 		return liste;
 	}
 	
-	public String getCal() {
-		
-		return "";
-	}
 	
 	public GestionXML() {
 		this.filePath = System.getenv().get("HOMEPATH") + "\\Documents\\Tir Arc\\";
