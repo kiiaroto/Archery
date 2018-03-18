@@ -179,7 +179,10 @@ public class FenetreListeSession {
 				System.out.println("selectionEmpty");
 			}
 			else {
-							
+				
+				GestionXML xml = new GestionXML(listeSession.getSelectedValue().substring(24));
+				xml.readXmlFile();
+				
 				FenetreScore fenetreScore = new FenetreScore();
 				fenetreScore.affiche(sessions.getSession(listeSession.getSelectedValue().substring(24)));
 							

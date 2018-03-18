@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import dao.GestionXML;
 import modele.Fleche;
 import modele.ListeDesSession;
 import modele.Session;
@@ -328,6 +329,8 @@ public class ModificationScore {
 				sessions.ajouterSession(session);
 			}
 			
+			GestionXML xml= new GestionXML(session);
+	        xml.writeXmlFile(voléeMap);
 		}
 		
 	}

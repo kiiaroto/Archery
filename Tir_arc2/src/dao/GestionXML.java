@@ -24,6 +24,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import modele.Fleche;
+import modele.ListeDesSession;
 import modele.Session;
 import modele.Volée;
 
@@ -31,6 +32,7 @@ public class GestionXML {
 	
 	private Session session;
 	private String filePath;
+	private String nomSession;
 	
 	private File file;
 	
@@ -143,7 +145,7 @@ public class GestionXML {
 	}
 
 	public void writeXmlFile(HashMap<String, Volée> voléeMap) {
-		//TODO
+		
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		ArrayList<Fleche> listeDesFleches;
 		int conteur;
@@ -165,7 +167,7 @@ public class GestionXML {
 				listeDesFleches = voléeMap.get(voleeBuildedName).getAllArrow();
 				
 				Node voleeNode = voleeNodeList.item(i);
-				System.out.println(i);
+				//System.out.println(i);
 				if (voleeNode.getNodeType() == Node.ELEMENT_NODE) {
 					
 					NodeList flecheNodeList = voleeNode.getChildNodes();
@@ -179,7 +181,7 @@ public class GestionXML {
 //							System.out.println(listeDesFleches.get(conteur).getPoints());
 
 							flecheNode.setTextContent(String.valueOf(listeDesFleches.get(conteur).getPoints()));
-							conteur += 1;
+							conteur++;
 						}
 					}
 				}
@@ -220,6 +222,62 @@ public class GestionXML {
 	
 	public void readXmlFile() {
 		//TODO
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		ListeDesSession listeDesSessions = new ListeDesSession();
+		session = new Session();
+		session.setNom(nomSession);
+		
+		int nbrVolee = 0;
+		try {
+			
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(filePath);
+			Element racine = document.getDocumentElement();
+			NodeList voleeNodeList = racine.getElementsByTagName("volee");
+			
+			NodeList nbrDeVolee = racine.getElementsByTagName("nbrdevolee");
+			Node nbrVol = nbrDeVolee.item(0);
+			session.setNbrDeVolée(Integer.parseInt(nbrVol.getTextContent()));
+			
+			NodeList nbrDeFleche = racine.getElementsByTagName("nbrdefleche");
+			Node nbrFle = nbrDeFleche.item(0);
+			session.setNbrDeFlèche(Integer.parseInt(nbrFle.getTextContent()));
+			
+			
+			for (int i = 0; i < voleeNodeList.getLength(); i++) {
+				Node voleeNode = voleeNodeList.item(i);
+				
+				if (voleeNode.getNodeType() == Node.ELEMENT_NODE) {
+					nbrVolee++;
+					NodeList flecheNodeListe = voleeNode.getChildNodes();
+					
+					Volée volee = new Volée("volée" + String.valueOf(nbrVolee));
+					
+					for (int j = 0; j < flecheNodeListe.getLength(); j++) {
+						Node flecheNode = flecheNodeListe.item(j);
+						
+						if(flecheNode.getNodeType() == Node.ELEMENT_NODE) {
+							Fleche fleche = new Fleche(Integer.parseInt(flecheNode.getTextContent()));
+							volee.ajouterFleche(fleche);
+						}
+					}
+					session.ajouterVolée(volee);
+				}
+			}
+			
+			listeDesSessions.ajouterSession(session);
+			
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	
@@ -284,12 +342,14 @@ public class GestionXML {
 	public GestionXML(Session session) {
 		super();
 		this.session = session;
+		this.nomSession = session.getNom();
 		this.filePath = System.getenv().get("HOMEPATH") + "\\Documents\\Tir Arc\\" + session.getNom() + ".xml";
 		this.file = new File(filePath);
 	}
 	
 	public GestionXML(String nomSession) {
 		super();
+		this.nomSession = nomSession;
 		this.filePath = System.getenv().get("HOMEPATH") + "\\Documents\\Tir Arc\\" + nomSession + ".xml";
 		this.file = new File(filePath);
 	}
