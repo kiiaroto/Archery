@@ -228,6 +228,8 @@ public class GestionXML {
 		session.setNom(nomSession);
 		
 		int nbrVolee = 0;
+		int resultVolee = 0;
+		int totalVolee = 0;
 		try {
 			
 			DocumentBuilder builder = factory.newDocumentBuilder();
@@ -249,6 +251,7 @@ public class GestionXML {
 				
 				if (voleeNode.getNodeType() == Node.ELEMENT_NODE) {
 					nbrVolee++;
+					resultVolee = 0;
 					NodeList flecheNodeListe = voleeNode.getChildNodes();
 					
 					Volée volee = new Volée("volée" + String.valueOf(nbrVolee));
@@ -258,9 +261,14 @@ public class GestionXML {
 						
 						if(flecheNode.getNodeType() == Node.ELEMENT_NODE) {
 							Fleche fleche = new Fleche(Integer.parseInt(flecheNode.getTextContent()));
+							resultVolee += fleche.getPoints();
+							totalVolee += fleche.getPoints();
 							volee.ajouterFleche(fleche);
 						}
 					}
+					volee.setResultVolée(resultVolee);
+					volee.setTotalVolée(totalVolee);
+					
 					session.ajouterVolée(volee);
 				}
 			}
