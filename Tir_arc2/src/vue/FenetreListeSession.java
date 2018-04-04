@@ -80,24 +80,24 @@ public class FenetreListeSession {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			
-			// CrÈer les 2 textField pour les options
+			// Cr√©er les 2 textField pour les options
 			JTextField nom = new JTextField();
-			JTextField volÈe = new JTextField();
+			JTextField vol√©e = new JTextField();
 			JTextField fleche = new JTextField();
 			
-			//CrÈer un tableau d'objet afin de remplir la JOptionPane (un text, un input, un autre text, un autre input)
+			//Cr√©er un tableau d'objet afin de remplir la JOptionPane (un text, un input, un autre text, un autre input)
 			Object[] message = {
 				"Nom de votre Session", nom,
-			    "Nombre de volÈes:", volÈe,
-			    "Nombre de flËches:", fleche
+			    "Nombre de vol√©es:", vol√©e,
+			    "Nombre de fl√©ches:", fleche
 			};
 			
-			// Ser de paramËtre a la boucle, si Vrai, fin de boucle, si faux, continue la boucle
+			// Ser de param√©tre a la boucle, si Vrai, fin de boucle, si faux, continue la boucle
 			boolean optionsOK = false;
 			
 			while (!optionsOK) {
-				// Option prendra une certaine valeur si OK est sÈlÈctionner
-				//CrÈer une fenetre avec comme element les String et TextField crÈer prÈcedement, et comme titre "Option" avec un seul bouton OK
+				// Option prendra une certaine valeur si OK est s√©l√©ctionner
+				//Cr√©er une fenetre avec comme element les String et TextField cr√©er pr√©cedement, et comme titre "Option" avec un seul bouton OK
 				int option = JOptionPane.showConfirmDialog(null, message, "Option", JOptionPane.DEFAULT_OPTION);
 
 				// Si le bouton OK est clicker
@@ -105,7 +105,7 @@ public class FenetreListeSession {
 					// Tente de transformer les textfield en Entier, affiche la fenetre, et arrete la boucle.
 				    try {
 				    	String nomSession = nom.getText();
-				    	// Envoi a Exception e1 si le nom est laissÈ blanc
+				    	// Envoi a Exception e1 si le nom est laiss√© blanc
 				        if (nomSession.equals("")) {
 				        	throw new Exception(nomSession);
 				        }
@@ -113,24 +113,24 @@ public class FenetreListeSession {
 				        if (sessions.getSession(nomSession) != null) {
 				        	throw new Exception(nomSession);
 				        }
-				        int nbrVolÈe = Integer.parseInt(volÈe.getText());
-				        int nbrFlËche = Integer.parseInt(fleche.getText());
+				        int nbrVol√©e = Integer.parseInt(vol√©e.getText());
+				        int nbrFl√©che = Integer.parseInt(fleche.getText());
 				        
 				        FenetreAjoutScore fenetre = new FenetreAjoutScore();
-						//nombre de volÈe, nombre de flËche
-				        fenetre.affiche(nbrVolÈe, nbrFlËche, nomSession);
+						//nombre de vol√©e, nombre de fl√©che
+				        fenetre.affiche(nbrVol√©e, nbrFl√©che, nomSession);
 				        optionsOK = true;
 				        
-				        // Ferme et DÈtruit la fenetreDesSession
+				        // Ferme et D√©truit la fenetreDesSession
 						fenetreDesSession.dispose();
 				   }
 				    // Si les textField ne son pas des entier, ont affiche un message d'erreur et on recommence la boucle
 				   catch (NumberFormatException e1) {
-		               JOptionPane.showMessageDialog(volÈe, "Merci de ne choisir que des nombre", "Try again", JOptionPane.ERROR_MESSAGE);
+		               JOptionPane.showMessageDialog(vol√©e, "Merci de ne choisir que des nombre", "Try again", JOptionPane.ERROR_MESSAGE);
 				   } catch (Exception e1) {
 					// TODO Auto-generated catch block
-					   // si le nom de la session est laissÈ blanc ou si la session existe dÈja envoie le message d'erreur.
-					   JOptionPane.showMessageDialog(volÈe, "Merci de choisir un nom de Session valide et qui n'existe pas dÈj‡", "Try again", JOptionPane.ERROR_MESSAGE);
+					   // si le nom de la session est laiss√© blanc ou si la session existe d√©ja envoie le message d'erreur.
+					   JOptionPane.showMessageDialog(vol√©e, "Merci de choisir un nom de Session valide et qui n'existe pas d√©j√©", "Try again", JOptionPane.ERROR_MESSAGE);
 				}
 				} else {
 					// si on click sur autre chose que OK, on stop la boucle et ferme le programme
@@ -150,8 +150,8 @@ public class FenetreListeSession {
 			// TODO Auto-generated method stub
 			
 			if (!listeSession.isSelectionEmpty()) {
-				// CrÈer une une fenetre de confirmation pour supprimer une Session
-				int option = JOptionPane.showConfirmDialog(null, "Voulez vous vraiment supprimer: " + listeSession.getSelectedValue(), " tes vous sur?", JOptionPane.YES_NO_OPTION);
+				// Cr√©er une une fenetre de confirmation pour supprimer une Session
+				int option = JOptionPane.showConfirmDialog(null, "Voulez vous vraiment supprimer: " + listeSession.getSelectedValue(), "√©tes vous sur?", JOptionPane.YES_NO_OPTION);
 				
 				// Si le bouton YES est clicker
 				if (option == JOptionPane.YES_OPTION) {
@@ -162,7 +162,7 @@ public class FenetreListeSession {
 					
 					// Supprime la session sans prendre en compte la date (substring 24)
 					sessions.supprimerSession(listeSession.getSelectedValue().substring(24));
-					// Suprimme la SÈlÈction Session de la Jlist
+					// Suprimme la S√©l√©ction Session de la Jlist
 					nomDesSessions.removeElementAt(listeSession.getSelectedIndex());
 				}
 				

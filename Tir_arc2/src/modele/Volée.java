@@ -2,63 +2,63 @@ package modele;
 
 import java.util.ArrayList;
 
-public class Volée {
-	private String numéroVolée;
-	private int resultVolée;
-	private int totalVolée;
+public class VolÃ©e {
+	private String numÃ©roVolÃ©e;
+	private int resultVolÃ©e;
+	private int totalVolÃ©e;
 	
-	ArrayList<Fleche> volée = new ArrayList<Fleche>();
+	ArrayList<Fleche> volÃ©e = new ArrayList<Fleche>();
 	
 	public void ajouterFleche(Fleche fleche) {
-		volée.add(fleche);
+		volÃ©e.add(fleche);
 	}
 	
-	public int totalDeLaVolée() {
+	public int totalDeLaVolÃ©e() {
 		int total = 0;
-		for (Fleche fleche : volée) {
+		for (Fleche fleche : volÃ©e) {
 			total += fleche.getPoints();
 		}
-		resultVolée = total;
+		resultVolÃ©e = total;
 		return total;
 	}
 	
 	public ArrayList<Fleche> getAllArrow(){
-		return volée;
+		return volÃ©e;
 	}
 
-	public int getResultVolée() {
-		return resultVolée;
+	public int getResultVolÃ©e() {
+		return resultVolÃ©e;
 	}
 
-	public void setResultVolée(int resultVolée) {
-		this.resultVolée = resultVolée;
+	public void setResultVolÃ©e(int resultVolÃ©e) {
+		this.resultVolÃ©e = resultVolÃ©e;
 	}
 
-	public int getTotalVolée() {
-		return totalVolée;
+	public int getTotalVolÃ©e() {
+		return totalVolÃ©e;
 	}
 
-	public void setTotalVolée(int totalVolée) {
-		this.totalVolée = totalVolée;
+	public void setTotalVolÃ©e(int totalVolÃ©e) {
+		this.totalVolÃ©e = totalVolÃ©e;
 	}
 
-	public String getNuméroVolée() {
-		return numéroVolée;
+	public String getNumÃ©roVolÃ©e() {
+		return numÃ©roVolÃ©e;
 	}
 
-	public void setNuméroVolée(String numéroVolée) {
-		this.numéroVolée = numéroVolée;
+	public void setNumÃ©roVolÃ©e(String numÃ©roVolÃ©e) {
+		this.numÃ©roVolÃ©e = numÃ©roVolÃ©e;
 	}
 
 	@Override
 	public String toString() {
-		return "Volée [numéroVolée=" + numéroVolée + ", resultVolée=" + resultVolée + ", totalVolée=" + totalVolée
-				+ ", volée=" + volée + "]";
+		return "VolÃ©e [numÃ©roVolÃ©e=" + numÃ©roVolÃ©e + ", resultVolÃ©e=" + resultVolÃ©e + ", totalVolÃ©e=" + totalVolÃ©e
+				+ ", volÃ©e=" + volÃ©e + "]";
 	}
 
-	public Volée(String numéroVolée) {
+	public VolÃ©e(String numÃ©roVolÃ©e) {
 		super();
-		this.numéroVolée = numéroVolée;
+		this.numÃ©roVolÃ©e = numÃ©roVolÃ©e;
 	}
 	
 	

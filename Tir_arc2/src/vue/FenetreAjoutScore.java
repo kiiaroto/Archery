@@ -22,38 +22,38 @@ import dao.GestionXML;
 import modele.Fleche;
 import modele.ListeDesSession;
 import modele.Session;
-import modele.Volée;
+import modele.VolÃ©e;
 
 public class FenetreAjoutScore {
 	List<String> listeNombres = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
 	HashMap<String, JLabel> labelMap = new HashMap<String, JLabel>();
 	HashMap<String, JTextField> textFieldMap = new HashMap<String, JTextField>();
-	HashMap<String, Volée> voléeMap = new HashMap<String, Volée>();
+	HashMap<String, VolÃ©e> volÃ©eMap = new HashMap<String, VolÃ©e>();
 	
 	ListeDesSession sessions = new ListeDesSession();
 	
 	JFrame maFenetre;
 	
 	String textHeader = "";
-	String textVolée = "";
+	String textVolÃ©e = "";
 	String pointSpace = ".";
-	String nameVolée = "";
-	String numéroDeFleche = "";
-	String volée = "volée";
+	String nameVolÃ©e = "";
+	String numÃ©roDeFleche = "";
+	String volÃ©e = "volÃ©e";
 	String arrow = "arrow";
 	String resultLigne = "resultatLigne";
 	String totalLigne = "totalLigne";
-	String nameRésultatVolée = "";
-	String nameTotalVolée = "";
+	String nameRÃ©sultatVolÃ©e = "";
+	String nameTotalVolÃ©e = "";
 	
 	String nomSession;
 	
-	int totalVolée = 0;
-	int résultatVolée = 0;
-	int totalPreviousVolée = 0;
+	int totalVolÃ©e = 0;
+	int rÃ©sultatVolÃ©e = 0;
+	int totalPreviousVolÃ©e = 0;
 	
-	int nombreDeFlèche = 0;
-	int nombreDeVolée = 0;
+	int nombreDeFlÃ©che = 0;
+	int nombreDeVolÃ©e = 0;
 	
 	
 	DocumentListener docListener = new DocumentListener() {
@@ -76,72 +76,72 @@ public class FenetreAjoutScore {
 		}
 		
 		public void calcul() {
-			for (int i = 1; i <= nombreDeVolée; i++) {
-				// Créer le String qui servira de clé dans la map (volée1, volée2, volée3, ...)
-				nameVolée = volée + String.valueOf(i);
+			for (int i = 1; i <= nombreDeVolÃ©e; i++) {
+				// CrÃ©er le String qui servira de clÃ© dans la map (volÃ©e1, volÃ©e2, volÃ©e3, ...)
+				nameVolÃ©e = volÃ©e + String.valueOf(i);
 				
-				voléeMap.put(nameVolée, new Volée(nameVolée));
+				volÃ©eMap.put(nameVolÃ©e, new VolÃ©e(nameVolÃ©e));
 				
 				
 				
-				// Génere par volée le nombre de textField correspondant au nombre de fleche.
-				for (int j = 1; j <= nombreDeFlèche; j++) {
-					// reset le String à la bonne volée (volée1, volée2, volée3, ...)
-					numéroDeFleche = nameVolée;
-					// Ajout le numéro de la fleche a la volée (volée1arrow1, volée1arrow2, volée1arrow3, ...)
-					numéroDeFleche += arrow + String.valueOf(j);
+				// GÃ©nere par volÃ©e le nombre de textField correspondant au nombre de fleche.
+				for (int j = 1; j <= nombreDeFlÃ©che; j++) {
+					// reset le String Ã© la bonne volÃ©e (volÃ©e1, volÃ©e2, volÃ©e3, ...)
+					numÃ©roDeFleche = nameVolÃ©e;
+					// Ajout le numÃ©ro de la fleche a la volÃ©e (volÃ©e1arrow1, volÃ©e1arrow2, volÃ©e1arrow3, ...)
+					numÃ©roDeFleche += arrow + String.valueOf(j);
 					
-					// Si le getText récupère une valeur qui existe dans le tableau de nombre, alors on créer une nouvelle fleche avec cette valeurs comme points
-					if (listeNombres.contains(textFieldMap.get(numéroDeFleche).getText())) {
-						voléeMap.get(nameVolée).ajouterFleche(new Fleche(Integer.parseInt(textFieldMap.get(numéroDeFleche).getText())));
+					// Si le getText rÃ©cupÃ©re une valeur qui existe dans le tableau de nombre, alors on crÃ©er une nouvelle fleche avec cette valeurs comme points
+					if (listeNombres.contains(textFieldMap.get(numÃ©roDeFleche).getText())) {
+						volÃ©eMap.get(nameVolÃ©e).ajouterFleche(new Fleche(Integer.parseInt(textFieldMap.get(numÃ©roDeFleche).getText())));
 					}
-					//Sinon, on créer une fleche de valeur 0
+					//Sinon, on crÃ©er une fleche de valeur 0
 					else {
-						voléeMap.get(nameVolée).ajouterFleche(new Fleche(0));
+						volÃ©eMap.get(nameVolÃ©e).ajouterFleche(new Fleche(0));
 					}
 					
 
 				}
 				
-				// Génere le label du resultat de la ligne
-				//Préparation du String qui servira de clé pour le resultat de la ligne (resultatLigne1, resultatLigne2, resultatLigne3 ...)
-				nameRésultatVolée = resultLigne + String.valueOf(i);
-				// Donne a résultatVolée la valeur du résultat de la volée
-				résultatVolée = voléeMap.get(nameVolée).totalDeLaVolée();
-				// Change le label nommé (resultatLigne1, resultatLigne2, resultatLigne3 ...) et lui attribut le text a affiché qui correspond au résultat de la volée
-				labelMap.get(nameRésultatVolée).setText(String.valueOf(résultatVolée));
+				// GÃ©nere le label du resultat de la ligne
+				//PrÃ©paration du String qui servira de clÃ© pour le resultat de la ligne (resultatLigne1, resultatLigne2, resultatLigne3 ...)
+				nameRÃ©sultatVolÃ©e = resultLigne + String.valueOf(i);
+				// Donne a rÃ©sultatVolÃ©e la valeur du rÃ©sultat de la volÃ©e
+				rÃ©sultatVolÃ©e = volÃ©eMap.get(nameVolÃ©e).totalDeLaVolÃ©e();
+				// Change le label nommÃ© (resultatLigne1, resultatLigne2, resultatLigne3 ...) et lui attribut le text a affichÃ© qui correspond au rÃ©sultat de la volÃ©e
+				labelMap.get(nameRÃ©sultatVolÃ©e).setText(String.valueOf(rÃ©sultatVolÃ©e));
 
 				
-				// Récupère le total de l'ancienne volée et lui ajoute le résultat de la dernière volée ajouté
-				// si c'est la 1ere volée, initialise le total a la même valeur que le résultat
+				// RÃ©cupÃ©re le total de l'ancienne volÃ©e et lui ajoute le rÃ©sultat de la derniÃ©re volÃ©e ajoutÃ©
+				// si c'est la 1ere volÃ©e, initialise le total a la mÃ©me valeur que le rÃ©sultat
 				if(i == 1) {
-					totalVolée = résultatVolée;
+					totalVolÃ©e = rÃ©sultatVolÃ©e;
 				}
 				else {
-					// Récupère le total de l'ancienne volée et lui ajoute le résultat de la dernière volée ajouté
-					totalVolée = résultatVolée + totalPreviousVolée;
+					// RÃ©cupÃ©re le total de l'ancienne volÃ©e et lui ajoute le rÃ©sultat de la derniÃ©re volÃ©e ajoutÃ©
+					totalVolÃ©e = rÃ©sultatVolÃ©e + totalPreviousVolÃ©e;
 				}
 				
 				
-				// Génere le label du total
-				//Préparation du String qui servira de clé pour le total de la ligne (totalLigne1, totalLigne2, totalLigne3 ...)
-				nameTotalVolée = totalLigne + String.valueOf(i);
-				//Sauvegarde dans la volée, le total des points a cette volée la
-				voléeMap.get(nameVolée).setTotalVolée(totalVolée);
-				// Change le label nommé (totalLigne1, totalLigne2, totalLigne3 ...) et lui attribut le text a affiché qui correspond au total de la volée
-				labelMap.get(nameTotalVolée).setText(String.valueOf(totalVolée));
-				// sauvegarde du total de la volée pour le réutilisé plus tard
-				totalPreviousVolée = totalVolée;
+				// GÃ©nere le label du total
+				//PrÃ©paration du String qui servira de clÃ© pour le total de la ligne (totalLigne1, totalLigne2, totalLigne3 ...)
+				nameTotalVolÃ©e = totalLigne + String.valueOf(i);
+				//Sauvegarde dans la volÃ©e, le total des points a cette volÃ©e la
+				volÃ©eMap.get(nameVolÃ©e).setTotalVolÃ©e(totalVolÃ©e);
+				// Change le label nommÃ© (totalLigne1, totalLigne2, totalLigne3 ...) et lui attribut le text a affichÃ© qui correspond au total de la volÃ©e
+				labelMap.get(nameTotalVolÃ©e).setText(String.valueOf(totalVolÃ©e));
+				// sauvegarde du total de la volÃ©e pour le rÃ©utilisÃ© plus tard
+				totalPreviousVolÃ©e = totalVolÃ©e;
 				
 			}
 		}
 	};
 	
-	public void affiche(int nombreDeVolée, int nombreDeFlèche, String nomSession) {
+	public void affiche(int nombreDeVolÃ©e, int nombreDeFlÃ©che, String nomSession) {
 		
-		// Défini nombreDeFlèche et nombreDeVolée avec this. pour les réutiliser dans l'actionListener
-		this.nombreDeFlèche = nombreDeFlèche;
-		this.nombreDeVolée = nombreDeVolée;
+		// DÃ©fini nombreDeFlÃ©che et nombreDeVolÃ©e avec this. pour les rÃ©utiliser dans l'actionListener
+		this.nombreDeFlÃ©che = nombreDeFlÃ©che;
+		this.nombreDeVolÃ©e = nombreDeVolÃ©e;
 		this.nomSession = nomSession;
 		
 		
@@ -151,18 +151,18 @@ public class FenetreAjoutScore {
 		JPanel p1 = new JPanel();
 		p1.setLayout(new BorderLayout(10,10));
 			JPanel grille = new JPanel();
-			grille.setLayout(new GridLayout(nombreDeVolée + 1, nombreDeFlèche + 3, 10, 0));
+			grille.setLayout(new GridLayout(nombreDeVolÃ©e + 1, nombreDeFlÃ©che + 3, 10, 0));
 				//ligne 1
-				JLabel volée = new JLabel("Volée");
-				grille.add(volée);
+				JLabel volÃ©e = new JLabel("VolÃ©e");
+				grille.add(volÃ©e);
 				
-				// Génere en fonction du nombre de fleche choisis les labels 1 2 3 4 5 6 au dessus des textfields
-				for (int i = 1; i <= nombreDeFlèche; i++) {
-					// text head va contenir des numéro allant de 1 a NombreDeFleche
+				// GÃ©nere en fonction du nombre de fleche choisis les labels 1 2 3 4 5 6 au dessus des textfields
+				for (int i = 1; i <= nombreDeFlÃ©che; i++) {
+					// text head va contenir des numÃ©ro allant de 1 a NombreDeFleche
 					textHeader = String.valueOf(i);
 					// insert dans la map a la position textHeader(1, 2, 3 ...) un label contenant le text(1, 2, 3, ...)
 					labelMap.put(textHeader, new JLabel(textHeader, JLabel.CENTER));
-					// ajoute dans la fenetre le label créer précedemment
+					// ajoute dans la fenetre le label crÃ©er prÃ©cedemment
 					grille.add(labelMap.get(textHeader));
 				}
 				
@@ -171,47 +171,47 @@ public class FenetreAjoutScore {
 				JLabel total = new JLabel("Total", JLabel.CENTER);
 				grille.add(total);
 				
-				// Génere en fonction du nombreDeVolée le nombre de ligne requis pour le bon nombre de volée
-				for (int i = 1; i <= nombreDeVolée; i++) {
-					//Créer le string de text a afficehr pour le numéro de la volée (1., 2., 3. ...)
-					textVolée = String.valueOf(i) + pointSpace;
-					// Créer le String qui servira de clé dans la map (volée1, volée2, volée3, ...)
-					nameVolée = this.volée + String.valueOf(i);
-					// Ajoute à la map le Label avec comme text "textVolée"(1., 2., 3. ...) et comme clé "nameVolée" (volée1, volée2, volée3, ...)
-					labelMap.put(nameVolée, new JLabel(textVolée, JLabel.RIGHT));
+				// GÃ©nere en fonction du nombreDeVolÃ©e le nombre de ligne requis pour le bon nombre de volÃ©e
+				for (int i = 1; i <= nombreDeVolÃ©e; i++) {
+					//CrÃ©er le string de text a afficehr pour le numÃ©ro de la volÃ©e (1., 2., 3. ...)
+					textVolÃ©e = String.valueOf(i) + pointSpace;
+					// CrÃ©er le String qui servira de clÃ© dans la map (volÃ©e1, volÃ©e2, volÃ©e3, ...)
+					nameVolÃ©e = this.volÃ©e + String.valueOf(i);
+					// Ajoute Ã© la map le Label avec comme text "textVolÃ©e"(1., 2., 3. ...) et comme clÃ© "nameVolÃ©e" (volÃ©e1, volÃ©e2, volÃ©e3, ...)
+					labelMap.put(nameVolÃ©e, new JLabel(textVolÃ©e, JLabel.RIGHT));
 					// Ajoute le label a la fenetre
-					grille.add(labelMap.get(nameVolée));
+					grille.add(labelMap.get(nameVolÃ©e));
 					
 					
-					// Génere par volée le nombre de textField correspondant au nombre de fleche.
-					for (int j = 1; j <= nombreDeFlèche; j++) {
-						// reset le String à la bonne volée (volée1, volée2, volée3, ...)
-						numéroDeFleche = nameVolée;
-						// Ajout le numéro de la fleche a la volée (volée1arrow1, volée1arrow2, volée1arrow3, ...)
-						numéroDeFleche += this.arrow + String.valueOf(j);
-						// Ajoute à la map le TextField avec comme clé "numéroDeFleche" (volée1arrow1, volée1arrow2, volée1arrow3, ...)
+					// GÃ©nere par volÃ©e le nombre de textField correspondant au nombre de fleche.
+					for (int j = 1; j <= nombreDeFlÃ©che; j++) {
+						// reset le String Ã© la bonne volÃ©e (volÃ©e1, volÃ©e2, volÃ©e3, ...)
+						numÃ©roDeFleche = nameVolÃ©e;
+						// Ajout le numÃ©ro de la fleche a la volÃ©e (volÃ©e1arrow1, volÃ©e1arrow2, volÃ©e1arrow3, ...)
+						numÃ©roDeFleche += this.arrow + String.valueOf(j);
+						// Ajoute Ã© la map le TextField avec comme clÃ© "numÃ©roDeFleche" (volÃ©e1arrow1, volÃ©e1arrow2, volÃ©e1arrow3, ...)
 						JTextField txtField = new JTextField();
 						txtField.getDocument().addDocumentListener(docListener);
-						textFieldMap.put(numéroDeFleche, txtField);
+						textFieldMap.put(numÃ©roDeFleche, txtField);
 						// Ajoute le TextField a la fenetre
-						grille.add(textFieldMap.get(numéroDeFleche));
+						grille.add(textFieldMap.get(numÃ©roDeFleche));
 					}
 					
-					// Génere le label du resultat de la ligne
-					//Préparation du String qui servira de clé pour le resultat de la ligne (resultatLigne1, resultatLigne2, resultatLigne3 ...)
-					nameRésultatVolée = resultLigne + String.valueOf(i);
-					// Ajoute à la map le Label avec comme text "nameRésultatVolée" (resultatLigne1, resultatLigne2, resultatLigne3 ...)
-					labelMap.put(nameRésultatVolée, new JLabel(" ", JLabel.CENTER));
+					// GÃ©nere le label du resultat de la ligne
+					//PrÃ©paration du String qui servira de clÃ© pour le resultat de la ligne (resultatLigne1, resultatLigne2, resultatLigne3 ...)
+					nameRÃ©sultatVolÃ©e = resultLigne + String.valueOf(i);
+					// Ajoute Ã© la map le Label avec comme text "nameRÃ©sultatVolÃ©e" (resultatLigne1, resultatLigne2, resultatLigne3 ...)
+					labelMap.put(nameRÃ©sultatVolÃ©e, new JLabel(" ", JLabel.CENTER));
 					// Ajoute le label a la fenetre
-					grille.add(labelMap.get(nameRésultatVolée));
+					grille.add(labelMap.get(nameRÃ©sultatVolÃ©e));
 					
-					// Génere le label du total
-					//Préparation du String qui servira de clé pour le total de la ligne (totalLigne1, totalLigne2, totalLigne3 ...)
-					nameTotalVolée = totalLigne + String.valueOf(i);
-					// Ajoute à la map le Label avec comme text "nameVolée" (totalLigne1, totalLigne2, totalLigne3 ...)
-					labelMap.put(nameTotalVolée, new JLabel(" ", JLabel.CENTER));
+					// GÃ©nere le label du total
+					//PrÃ©paration du String qui servira de clÃ© pour le total de la ligne (totalLigne1, totalLigne2, totalLigne3 ...)
+					nameTotalVolÃ©e = totalLigne + String.valueOf(i);
+					// Ajoute Ã© la map le Label avec comme text "nameVolÃ©e" (totalLigne1, totalLigne2, totalLigne3 ...)
+					labelMap.put(nameTotalVolÃ©e, new JLabel(" ", JLabel.CENTER));
 					// Ajoute le label a la fenetre
-					grille.add(labelMap.get(nameTotalVolée));
+					grille.add(labelMap.get(nameTotalVolÃ©e));
 					
 				}
 
@@ -241,7 +241,7 @@ public class FenetreAjoutScore {
 		
 		maFenetre.pack();
 		maFenetre.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		// Add window listener pour revenir a la fenettre précédente en fermant la fenetre avec la croix en haut a droite (windowClosing)
+		// Add window listener pour revenir a la fenettre prÃ©cÃ©dente en fermant la fenetre avec la croix en haut a droite (windowClosing)
 		maFenetre.addWindowListener(new WindowListener() {
 			
 			@Override
@@ -272,7 +272,7 @@ public class FenetreAjoutScore {
 			public void windowClosing(WindowEvent e) {
 				// TODO Auto-generated method stub
 				maFenetre.dispose();
-				// créer et affiche la fenetre avec la liste des sessions
+				// crÃ©er et affiche la fenetre avec la liste des sessions
 				FenetreListeSession fenetreListeSession = new FenetreListeSession();
 				fenetreListeSession.affiche();
 			}
@@ -298,31 +298,31 @@ public class FenetreAjoutScore {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			Session session = new Session(nomSession, nombreDeVolée, nombreDeFlèche);
-			Session vérification = sessions.getSession(nomSession);
+			Session session = new Session(nomSession, nombreDeVolÃ©e, nombreDeFlÃ©che);
+			Session vÃ©rification = sessions.getSession(nomSession);
 			
-			//System.out.println(voléeMap.get("volée1"));
-			if(voléeMap.get("volée1") == null) {
-				voléeMap.put("volée1", new Volée("volée1"));
-				voléeMap.get("volée1").setResultVolée(0);
+			//System.out.println(volÃ©eMap.get("volÃ©e1"));
+			if(volÃ©eMap.get("volÃ©e1") == null) {
+				volÃ©eMap.put("volÃ©e1", new VolÃ©e("volÃ©e1"));
+				volÃ©eMap.get("volÃ©e1").setResultVolÃ©e(0);
 			}
 			
-			if(vérification == null) {
-				for (int i = 1; i <= nombreDeVolée; i++) {
-					// Créer le String qui servira de clé dans la map (volée1, volée2, volée3, ...)
-					nameVolée = volée + String.valueOf(i);
+			if(vÃ©rification == null) {
+				for (int i = 1; i <= nombreDeVolÃ©e; i++) {
+					// CrÃ©er le String qui servira de clÃ© dans la map (volÃ©e1, volÃ©e2, volÃ©e3, ...)
+					nameVolÃ©e = volÃ©e + String.valueOf(i);
 					
-					session.ajouterVolée(voléeMap.get(nameVolée));
+					session.ajouterVolÃ©e(volÃ©eMap.get(nameVolÃ©e));
 				}
 				sessions.ajouterSession(session);
 			}
 			else {
 				sessions.supprimerSession(nomSession);
-				for (int i = 1; i <= nombreDeVolée; i++) {
-					// Créer le String qui servira de clé dans la map (volée1, volée2, volée3, ...)
-					nameVolée = volée + String.valueOf(i);
+				for (int i = 1; i <= nombreDeVolÃ©e; i++) {
+					// CrÃ©er le String qui servira de clÃ© dans la map (volÃ©e1, volÃ©e2, volÃ©e3, ...)
+					nameVolÃ©e = volÃ©e + String.valueOf(i);
 					
-					session.ajouterVolée(voléeMap.get(nameVolée));
+					session.ajouterVolÃ©e(volÃ©eMap.get(nameVolÃ©e));
 				}
 				sessions.ajouterSession(session);
 			}
@@ -330,7 +330,7 @@ public class FenetreAjoutScore {
 			
 			GestionXML xml= new GestionXML(session);
 	        xml.createXmlFile();
-	        xml.writeXmlFile(voléeMap);
+	        xml.writeXmlFile(volÃ©eMap);
 			
 		}
 		
@@ -343,7 +343,7 @@ public class FenetreAjoutScore {
 			// TODO Auto-generated method stub
 			//Ferme la fenetre des score
 			maFenetre.dispose();
-			// créer et affiche la fenetre avec la liste des sessions
+			// crÃ©er et affiche la fenetre avec la liste des sessions
 			FenetreListeSession fenetreListeSession = new FenetreListeSession();
 			fenetreListeSession.affiche();
 		}

@@ -10,30 +10,30 @@ public class Session {
 	private DateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			// use System.out.println(formatDate.format(cal.getTime())); to get the good dateformat
 	private Calendar cal;
-	private int nbrDeVolée;
-	private int nbrDeFlèche;
+	private int nbrDeVolÃ©e;
+	private int nbrDeFlÃ©che;
 	
-	ArrayList<Volée> session = new ArrayList<Volée>();
+	ArrayList<VolÃ©e> session = new ArrayList<VolÃ©e>();
 	
-	public void ajouterVolée(Volée volée) {
-		session.add(volée);
+	public void ajouterVolÃ©e(VolÃ©e volÃ©e) {
+		session.add(volÃ©e);
 	}
 
 	public int totalDeLaSession() {
 		int total = 0;
-		for (Volée volée : session) {
-			total += volée.totalDeLaVolée();
+		for (VolÃ©e volÃ©e : session) {
+			total += volÃ©e.totalDeLaVolÃ©e();
 		}
 		return total;
 	}
 	public ArrayList<Fleche> getAllArrow() {
 		ArrayList<Fleche> allArrow = new ArrayList<Fleche>();
-		for(Volée volée : session) {
-			for(Fleche fleche: volée.getAllArrow()) {
+		for(VolÃ©e volÃ©e : session) {
+			for(Fleche fleche: volÃ©e.getAllArrow()) {
 				allArrow.add(fleche);
 			}
-			allArrow.add(new Fleche(volée.getResultVolée()));
-			allArrow.add(new Fleche(volée.getTotalVolée()));
+			allArrow.add(new Fleche(volÃ©e.getResultVolÃ©e()));
+			allArrow.add(new Fleche(volÃ©e.getTotalVolÃ©e()));
 		}
 		return allArrow;
 	}
@@ -43,20 +43,20 @@ public class Session {
 	}
 	
 	
-	public int getNbrDeVolée() {
-		return nbrDeVolée;
+	public int getNbrDeVolÃ©e() {
+		return nbrDeVolÃ©e;
 	}
 
-	public void setNbrDeVolée(int nbrDeVolée) {
-		this.nbrDeVolée = nbrDeVolée;
+	public void setNbrDeVolÃ©e(int nbrDeVolÃ©e) {
+		this.nbrDeVolÃ©e = nbrDeVolÃ©e;
 	}
 
-	public int getNbrDeFlèche() {
-		return nbrDeFlèche;
+	public int getNbrDeFlÃ©che() {
+		return nbrDeFlÃ©che;
 	}
 
-	public void setNbrDeFlèche(int nbrDeFlèche) {
-		this.nbrDeFlèche = nbrDeFlèche;
+	public void setNbrDeFlÃ©che(int nbrDeFlÃ©che) {
+		this.nbrDeFlÃ©che = nbrDeFlÃ©che;
 	}
 
 	public String getNom() {
@@ -76,11 +76,11 @@ public class Session {
 		return "Session [nom=" + nom + ", cal=" + cal + ", session=" + session + "]";
 	}
 
-	public Session(String nom, int nbrDeVolée, int nbrDeFlèche) {
+	public Session(String nom, int nbrDeVolÃ©e, int nbrDeFlÃ©che) {
 		super();
 		this.nom = nom;
-		this.nbrDeVolée = nbrDeVolée;
-		this.nbrDeFlèche =  nbrDeFlèche;
+		this.nbrDeVolÃ©e = nbrDeVolÃ©e;
+		this.nbrDeFlÃ©che =  nbrDeFlÃ©che;
 		this.cal = Calendar.getInstance();
 	}
 

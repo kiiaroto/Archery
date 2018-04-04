@@ -26,7 +26,7 @@ import org.xml.sax.SAXException;
 import modele.Fleche;
 import modele.ListeDesSession;
 import modele.Session;
-import modele.Volée;
+import modele.VolÃ©e;
 
 public class GestionXML {
 	
@@ -69,11 +69,11 @@ public class GestionXML {
 				DocumentBuilder builder = factory.newDocumentBuilder();
 				Document document = builder.newDocument();
 				
-				// Création de la balise session qui contiendra tout les élement
+				// CrÃ©ation de la balise session qui contiendra tout les Ã©lement
 				Element sess = document.createElement("session");
-					// création de la balise info qui contiendra toute les info de la session
+					// crÃ©ation de la balise info qui contiendra toute les info de la session
 					Element sessionInfo = document.createElement("info");
-						//création des balise d'information
+						//crÃ©ation des balise d'information
 						Element sessionNom = document.createElement("nom");
 						Element sessionCal = document.createElement("cal");
 						Element sessionNbrDeVolee = document.createElement("nbrdevolee");
@@ -82,16 +82,16 @@ public class GestionXML {
 						//ajout des balise d'information dans la balise info et leurs ajoute dleurs contenu
 						sessionInfo.appendChild(sessionNom).setTextContent(session.getNom());
 						sessionInfo.appendChild(sessionCal).setTextContent(session.getDate());
-						sessionInfo.appendChild(sessionNbrDeVolee).setTextContent(String.valueOf(session.getNbrDeVolée()));
-						sessionInfo.appendChild(sessionNbrDeFleche).setTextContent(String.valueOf(session.getNbrDeFlèche()));
+						sessionInfo.appendChild(sessionNbrDeVolee).setTextContent(String.valueOf(session.getNbrDeVolÃ©e()));
+						sessionInfo.appendChild(sessionNbrDeFleche).setTextContent(String.valueOf(session.getNbrDeFlÃ©che()));
 					
 					//ajout de la balise info et son contenu dans la balise session
 					sess.appendChild(sessionInfo);
 					
 					
-					//Génération du nombre de volée et de flèche nécessaire a l'écriture du fichier
-					int nbrVolee = session.getNbrDeVolée();
-					int nbrFleche = session.getNbrDeFlèche();
+					//GÃ©nÃ©ration du nombre de volÃ©e et de flÃ©che nÃ©cessaire a l'Ã©criture du fichier
+					int nbrVolee = session.getNbrDeVolÃ©e();
+					int nbrFleche = session.getNbrDeFlÃ©che();
 					
 					for (int i = 1; i <= nbrVolee; i++) {
 						
@@ -144,14 +144,14 @@ public class GestionXML {
 		return false;
 	}
 
-	public void writeXmlFile(HashMap<String, Volée> voléeMap) {
+	public void writeXmlFile(HashMap<String, VolÃ©e> volÃ©eMap) {
 		
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		ArrayList<Fleche> listeDesFleches;
 		int conteur;
 		
 		String voleeBuildedName = "";
-		//volée1arrow2
+		//volÃ©e1arrow2
 		try {
 			
 			DocumentBuilder builder = factory.newDocumentBuilder();
@@ -163,8 +163,8 @@ public class GestionXML {
 			
 			for (int i = 0; i < voleeNodeList.getLength(); i++) {
 				conteur = 0;
-				voleeBuildedName = "volée" + String.valueOf(i + 1);
-				listeDesFleches = voléeMap.get(voleeBuildedName).getAllArrow();
+				voleeBuildedName = "volÃ©e" + String.valueOf(i + 1);
+				listeDesFleches = volÃ©eMap.get(voleeBuildedName).getAllArrow();
 				
 				Node voleeNode = voleeNodeList.item(i);
 				//System.out.println(i);
@@ -239,11 +239,11 @@ public class GestionXML {
 			
 			NodeList nbrDeVolee = racine.getElementsByTagName("nbrdevolee");
 			Node nbrVol = nbrDeVolee.item(0);
-			session.setNbrDeVolée(Integer.parseInt(nbrVol.getTextContent()));
+			session.setNbrDeVolÃ©e(Integer.parseInt(nbrVol.getTextContent()));
 			
 			NodeList nbrDeFleche = racine.getElementsByTagName("nbrdefleche");
 			Node nbrFle = nbrDeFleche.item(0);
-			session.setNbrDeFlèche(Integer.parseInt(nbrFle.getTextContent()));
+			session.setNbrDeFlÃ©che(Integer.parseInt(nbrFle.getTextContent()));
 			
 			
 			for (int i = 0; i < voleeNodeList.getLength(); i++) {
@@ -254,7 +254,7 @@ public class GestionXML {
 					resultVolee = 0;
 					NodeList flecheNodeListe = voleeNode.getChildNodes();
 					
-					Volée volee = new Volée("volée" + String.valueOf(nbrVolee));
+					VolÃ©e volee = new VolÃ©e("volÃ©e" + String.valueOf(nbrVolee));
 					
 					for (int j = 0; j < flecheNodeListe.getLength(); j++) {
 						Node flecheNode = flecheNodeListe.item(j);
@@ -266,10 +266,10 @@ public class GestionXML {
 							volee.ajouterFleche(fleche);
 						}
 					}
-					volee.setResultVolée(resultVolee);
-					volee.setTotalVolée(totalVolee);
+					volee.setResultVolÃ©e(resultVolee);
+					volee.setTotalVolÃ©e(totalVolee);
 					
-					session.ajouterVolée(volee);
+					session.ajouterVolÃ©e(volee);
 				}
 			}
 			
